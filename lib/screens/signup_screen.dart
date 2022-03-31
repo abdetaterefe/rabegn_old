@@ -55,12 +55,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 10,
                 ),
                 CustomButton(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/loginscreen');
+                  },
                   buttonText: "Sign Up",
                 ),
                 const Spacer(),
                 CustomButton(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/loginscreen');
+                  },
                   buttonText: "I have an account",
                 ),
               ],

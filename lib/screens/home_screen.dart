@@ -71,90 +71,25 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Container TrendingWidgets() {
-    return Container(
-      width: 220,
-      height: 300,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.white, width: 2),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Stack(
-        children: [
-          Container(
-            color: Colors.blue.withOpacity(0.7),
-          ),
-          Positioned(
-            left: 16,
-            top: 16,
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.white, width: 2),
-              ),
-              child: const Text('tsome'),
-            ),
-          ),
-          Positioned(
-            bottom: 16,
-            right: 12,
-            left: 12,
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.red.withOpacity(.5),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.white, width: 2),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: const [
-                      Expanded(
-                        child: Text(
-                          'title',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Icon(
-                        Icons.favorite,
-                        size: 18,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text('time and bullshit')
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container MainHomeRecipeWidget(BuildContext context) {
-    return Container(
-      height: 400,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.white, width: 2),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(5),
+  InkWell TrendingWidgets() {
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, '/recipescreen');
+      },
+      child: Container(
+        width: 220,
+        height: 300,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.white, width: 2),
+          borderRadius: BorderRadius.circular(5),
+        ),
         child: Stack(
           children: [
-            Container(
-              color: Colors.blue.withOpacity(0.7),
+            Image.asset(
+              'assets/images.jpeg',
+              fit: BoxFit.cover,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
             ),
             Positioned(
               left: 16,
@@ -164,65 +99,146 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.white, width: 2),
                 ),
                 child: const Text('tsome'),
               ),
             ),
             Positioned(
-              right: 16,
-              top: 16,
-              child: Container(
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.favorite),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              left: 0,
+              bottom: 16,
+              right: 12,
+              left: 12,
               child: Container(
                 padding: const EdgeInsets.all(10),
-                height: MediaQuery.of(context).size.height / 6,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Colors.red.withAlpha(220),
-                      Colors.red.withAlpha(180),
-                      Colors.red.withAlpha(140),
-                      Colors.red.withAlpha(100),
-                      Colors.transparent,
-                    ],
-                    stops: const [0.1, 0.25, 0.5, 0.7, 1],
-                  ),
+                  color: Colors.red.withOpacity(.5),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.white, width: 2),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Title',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  children: [
+                    Row(
+                      children: const [
+                        Expanded(
+                          child: Text(
+                            'title',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.favorite,
+                          size: 18,
+                        ),
+                      ],
                     ),
-                    Text(
-                      'discription of the title',
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
+                    const SizedBox(
+                      height: 10,
                     ),
+                    const Text('time and bullshit')
                   ],
                 ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  InkWell MainHomeRecipeWidget(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, '/recipescreen');
+      },
+      child: Container(
+        height: 400,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.white, width: 2),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(5),
+          child: Stack(
+            children: [
+              Image.asset(
+                'assets/images.jpeg',
+                fit: BoxFit.cover,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+              Positioned(
+                left: 16,
+                top: 16,
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Text('tsome'),
+                ),
+              ),
+              Positioned(
+                right: 16,
+                top: 16,
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(Icons.favorite),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  height: MediaQuery.of(context).size.height / 6,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [
+                        Colors.red.withAlpha(220),
+                        Colors.red.withAlpha(180),
+                        Colors.red.withAlpha(140),
+                        Colors.red.withAlpha(100),
+                        Colors.transparent,
+                      ],
+                      stops: const [0.1, 0.25, 0.5, 0.7, 1],
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'Title',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'discription of the title',
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

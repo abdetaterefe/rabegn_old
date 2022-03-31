@@ -34,12 +34,16 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   height: 10,
                 ),
                 CustomButton(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/loginscreen');
+                  },
                   buttonText: "Procced",
                 ),
                 const Spacer(),
                 CustomButton(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/loginscreen');
+                  },
                   buttonText: "I remembered it",
                 ),
               ],

@@ -52,15 +52,21 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                CategoryPost(context),
+                CategoryPost(context, () {
+                  Navigator.pushNamed(context, '/recipescreen');
+                }),
                 const SizedBox(
                   height: 10,
                 ),
-                CategoryPost(context),
+                CategoryPost(context, () {
+                  Navigator.pushNamed(context, '/recipescreen');
+                }),
                 const SizedBox(
                   height: 10,
                 ),
-                CategoryPost(context),
+                CategoryPost(context, () {
+                  Navigator.pushNamed(context, '/recipescreen');
+                }),
                 const SizedBox(
                   height: 10,
                 ),
@@ -72,79 +78,85 @@ class _ExploreScreenState extends State<ExploreScreen> {
     );
   }
 
-  Container CategoryPost(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 250,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.white, width: 2),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Stack(
-        children: [
-          Container(
-            color: Colors.blue.withOpacity(0.7),
-          ),
-          Positioned(
-            left: 16,
-            top: 16,
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.white, width: 2),
-              ),
-              child: const Text('tsome'),
+  InkWell CategoryPost(BuildContext context, VoidCallback navigator) {
+    return InkWell(
+      onTap: navigator,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 250,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.white, width: 2),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Stack(
+          children: [
+            Image.asset(
+              'assets/images.jpeg',
+              fit: BoxFit.cover,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
             ),
-          ),
-          Positioned(
-            right: 16,
-            top: 16,
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.white, width: 2),
+            Positioned(
+              left: 16,
+              top: 16,
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+                child: const Text('tsome'),
               ),
-              child: const Icon(Icons.favorite),
             ),
-          ),
-          Positioned(
-            bottom: 16,
-            right: 12,
-            left: 12,
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.red.withOpacity(.5),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.white, width: 2),
+            Positioned(
+              right: 16,
+              top: 16,
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+                child: const Icon(Icons.favorite),
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: const [
-                      Text(
-                        'title',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
+            ),
+            Positioned(
+              bottom: 16,
+              right: 12,
+              left: 12,
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(.5),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: const [
+                        Text(
+                          'title',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text('time and bullshit')
-                ],
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text('time and bullshit')
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

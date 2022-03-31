@@ -124,7 +124,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
           height: 10,
         ),
         Text(
-          'now all you have to do is eat the shiro with enjera',
+          'now all you have to do is eat banana with bread :)',
           style: TextStyle(
             fontSize: 15,
           ),
@@ -202,8 +202,11 @@ class _RecipeScreenState extends State<RecipeScreen> {
       width: MediaQuery.of(context).size.width,
       child: Stack(
         children: [
-          Container(
-            color: Colors.blue.withOpacity(0.7),
+          Image.asset(
+            'assets/images.jpeg',
+            fit: BoxFit.fill,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
           ),
           Positioned(
             bottom: 0,

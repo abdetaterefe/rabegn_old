@@ -44,13 +44,18 @@ class _LogInScreenState extends State<LogInScreen> {
                   height: 10,
                 ),
                 CustomButton(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/mainscreen');
+                  },
                   buttonText: "Log In",
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/forgotscreen');
+                  },
                   child: const Text(
                     "Forgot Password",
                     style: TextStyle(color: Colors.blue),
@@ -58,7 +63,9 @@ class _LogInScreenState extends State<LogInScreen> {
                 ),
                 const Spacer(),
                 CustomButton(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/signupscreen');
+                  },
                   buttonText: "Create an account",
                 ),
               ],
