@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:form_field_validator/form_field_validator.dart';
+
 import '../widgets/custombutton.dart';
 import '../widgets/customtextfield.dart';
 
@@ -11,6 +13,7 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  final _formkey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
 
@@ -21,6 +24,7 @@ class _LogInScreenState extends State<LogInScreen> {
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Form(
+            key: _formkey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -30,6 +34,10 @@ class _LogInScreenState extends State<LogInScreen> {
                   show: false,
                   action: TextInputAction.next,
                   cust: _emailController,
+                  valid: MultiValidator([
+                    EmailValidator(errorText: 'enter a valid email address'),
+                    RequiredValidator(errorText: 'required'),
+                  ]),
                 ),
                 const SizedBox(
                   height: 10,
@@ -39,13 +47,20 @@ class _LogInScreenState extends State<LogInScreen> {
                   show: true,
                   action: TextInputAction.done,
                   cust: _passController,
+                  valid: MultiValidator([
+                    RequiredValidator(errorText: 'required'),
+                    MinLengthValidator(6,
+                        errorText: 'password must be gretter than 6'),
+                  ]),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 CustomButton(
                   onTap: () {
-                    Navigator.pushNamed(context, '/mainscreen');
+                    if (_formkey.currentState!.validate()) {
+                      Navigator.pushNamed(context, '/mainscreen');
+                    }
                   },
                   buttonText: "Log In",
                 ),
