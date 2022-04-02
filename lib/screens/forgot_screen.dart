@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 import '../widgets/custombutton.dart';
 import '../widgets/customtextfield.dart';
@@ -11,6 +12,7 @@ class ForgotScreen extends StatefulWidget {
 }
 
 class _ForgotScreenState extends State<ForgotScreen> {
+  final _formkey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
 
   @override
@@ -20,6 +22,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Form(
+            key: _formkey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -29,13 +32,19 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   show: false,
                   action: TextInputAction.next,
                   cust: _emailController,
+                  valid: MultiValidator([
+                    EmailValidator(errorText: 'enter a valid email address'),
+                    RequiredValidator(errorText: 'required'),
+                  ]),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 CustomButton(
                   onTap: () {
-                    Navigator.pushNamed(context, '/loginscreen');
+                    if (_formkey.currentState!.validate()) {
+                      Navigator.pushNamed(context, '/loginscreen');
+                    }
                   },
                   buttonText: "Procced",
                 ),
