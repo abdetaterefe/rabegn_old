@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 import '../widgets/custombutton.dart';
 import '../widgets/customtextfield.dart';
@@ -11,6 +12,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final _formkey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
 
   final TextEditingController _emailController = TextEditingController();
@@ -23,6 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Form(
+            key: _formkey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -32,6 +35,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   show: false,
                   action: TextInputAction.next,
                   cust: _nameController,
+                  valid: MultiValidator([
+                    RequiredValidator(errorText: 'required'),
+                    MinLengthValidator(4,
+                        errorText: 'name must be gretter than 6'),
+                  ]),
                 ),
                 const SizedBox(
                   height: 10,
@@ -41,6 +49,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   show: false,
                   action: TextInputAction.next,
                   cust: _emailController,
+                  valid: MultiValidator([
+                    EmailValidator(errorText: 'enter a valid email address'),
+                    RequiredValidator(errorText: 'required'),
+                  ]),
                 ),
                 const SizedBox(
                   height: 10,
@@ -50,13 +62,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   show: true,
                   action: TextInputAction.done,
                   cust: _passController,
+                  valid: MultiValidator([
+                    RequiredValidator(errorText: 'required'),
+                    MinLengthValidator(6,
+                        errorText: 'password must be gretter than 4'),
+                  ]),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 CustomButton(
                   onTap: () {
-                    Navigator.pushNamed(context, '/loginscreen');
+                    if (_formkey.currentState!.validate()) {
+                      Navigator.pushNamed(context, '/loginscreen');
+                    }
                   },
                   buttonText: "Sign Up",
                 ),
