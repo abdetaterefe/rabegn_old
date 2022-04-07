@@ -28,7 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 380,
+                  height: 370,
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
@@ -103,10 +103,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                       ),
-                      const Spacer(),
-                      CustomButton(onTap: () {}, buttonText: 'Log out'),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                CustomButton(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/loginscreen');
+                    },
+                    buttonText: 'Log out'),
+                const SizedBox(
+                  height: 30,
                 ),
               ],
             ),
