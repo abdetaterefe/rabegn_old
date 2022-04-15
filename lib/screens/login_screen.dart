@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:provider/provider.dart';
 
+import '../services/auth_services.dart';
 import '../widgets/custombutton.dart';
 import '../widgets/customtextfield.dart';
 
-class LogInScreen extends StatefulWidget {
-  const LogInScreen({Key? key}) : super(key: key);
-
-  @override
-  State<LogInScreen> createState() => _LogInScreenState();
-}
-
-class _LogInScreenState extends State<LogInScreen> {
-  final _formkey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passController = TextEditingController();
-
+class LogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _formkey = GlobalKey<FormState>();
+    final TextEditingController _emailController = TextEditingController();
+    final TextEditingController _passController = TextEditingController();
+
+    final authService = Provider.of<AuthService>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -59,7 +55,10 @@ class _LogInScreenState extends State<LogInScreen> {
                 CustomButton(
                   onTap: () {
                     if (_formkey.currentState!.validate()) {
-                      Navigator.pushNamed(context, '/mainscreen');
+                      authService.signInWithEmailAndPassword(
+                        _emailController.text,
+                        _passController.text,
+                      );
                     }
                   },
                   buttonText: "Log In",

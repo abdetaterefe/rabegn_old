@@ -16,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
   List pages = [
     const HomeScreen(),
     const ExploreScreen(),
-    const ProfileScreen(),
+    ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {

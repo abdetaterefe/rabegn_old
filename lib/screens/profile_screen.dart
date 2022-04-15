@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rabegn/widgets/custombutton.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+import '../services/auth_services.dart';
 
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
+class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final authSercice = Provider.of<AuthService>(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -110,8 +108,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 10,
                 ),
                 CustomButton(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/loginscreen');
+                    onTap: () async {
+                      await authSercice.signOut();
                     },
                     buttonText: 'Log out'),
                 const SizedBox(
@@ -171,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Name',
+                  'name',
                   style: TextStyle(fontSize: 25),
                 ),
                 const SizedBox(

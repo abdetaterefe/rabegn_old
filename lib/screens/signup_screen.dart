@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:provider/provider.dart';
+import 'package:rabegn/services/auth_services.dart';
 
 import '../widgets/custombutton.dart';
 import '../widgets/customtextfield.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
-  final _formkey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passController = TextEditingController();
-
+class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _formkey = GlobalKey<FormState>();
+    final TextEditingController _nameController = TextEditingController();
+    final TextEditingController _emailController = TextEditingController();
+    final TextEditingController _passController = TextEditingController();
+    final authSercice = Provider.of<AuthService>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -72,9 +66,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 10,
                 ),
                 CustomButton(
-                  onTap: () {
+                  onTap: () async {
                     if (_formkey.currentState!.validate()) {
-                      Navigator.pushNamed(context, '/loginscreen');
+                      await authSercice.signUpWithEmailAndPassword(
+                        "user",
+                        _nameController.text,
+                        _emailController.text,
+                        _passController.text,
+                      );
+                      Navigator.pop(context);
                     }
                   },
                   buttonText: "Sign Up",
