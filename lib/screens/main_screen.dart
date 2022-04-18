@@ -23,6 +23,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).backgroundColor,
         onTap: (value) {
           setState(() => _currentIndex = value);
         },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rabegn/widgets/custombutton.dart';
 
+import '../provider/theme_provider.dart';
 import '../services/auth_services.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -20,7 +21,37 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                ProfileInfoWidget(context),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 150,
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'authSercice.',
+                        style: TextStyle(fontSize: 25),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        'email@email.com',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      CustomButton(
+                        onTap: () {},
+                        buttonText: 'Edit Profile',
+                      ),
+                    ],
+                  ),
+                ),
                 const SizedBox(
                   height: 30,
                 ),
@@ -30,10 +61,6 @@ class ProfileScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      width: 2,
-                      color: Colors.white,
-                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,8 +85,16 @@ class ProfileScreen extends StatelessWidget {
                       SingleSettingItem(
                         'Dark Theme',
                         Switch.adaptive(
-                          value: true,
-                          onChanged: (value) {},
+                          activeColor:
+                              Theme.of(context).appBarTheme.backgroundColor,
+                          activeTrackColor:
+                              Theme.of(context).textTheme.headline6!.color,
+                          value:
+                              Provider.of<ThemeProvider>(context).isDarkModeOn,
+                          onChanged: (booleanValue) {
+                            Provider.of<ThemeProvider>(context, listen: false)
+                                .updateTheme(booleanValue);
+                          },
                         ),
                       ),
                       SingleSettingItem(
@@ -140,54 +175,6 @@ class ProfileScreen extends StatelessWidget {
         ),
         actionswitch,
       ],
-    );
-  }
-
-  Container ProfileInfoWidget(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 150,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(
-          width: 2,
-          color: Colors.white,
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const CircleAvatar(
-            radius: 50,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'name',
-                  style: TextStyle(fontSize: 25),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  'email@email.com',
-                  style: TextStyle(fontSize: 15),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomButton(onTap: () {}, buttonText: 'Edit Profile')
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
