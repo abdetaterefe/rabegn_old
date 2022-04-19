@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:rabegn/screens/admin_profile.dart';
+import 'package:rabegn/screens/admin_route.dart';
 import 'package:rabegn/screens/main_screen.dart';
 
 class AdminValidator extends StatefulWidget {
@@ -38,7 +38,7 @@ class _AdminValidatorState extends State<AdminValidator> {
     if (role == 'user') {
       navigateNext(const MainScreen());
     } else if (role == 'admin') {
-      navigateNext(const AdminProfileScreen());
+      navigateNext(AdminRoute());
     }
   }
 

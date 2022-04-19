@@ -1,31 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../shared_preference_helper.dart';
+import '../themes/themes.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  // shared pref object
-  late SharedPreferenceHelper _sharedPrefsHelper;
-
-  bool _isDarkModeOn = false;
-
-  ThemeProvider() {
-    _sharedPrefsHelper = SharedPreferenceHelper();
+  late ThemeData _selectedTheme;
+  late SharedPreferences prefs;
+  ThemeProvider({bool isDark = false}) {
+    _selectedTheme = isDark ? darkTheme : lightTheme;
   }
 
-  bool get isDarkModeOn {
-    _sharedPrefsHelper.isDarkMode.then((statusValue) {
-      _isDarkModeOn = statusValue;
-    });
+  ThemeData get getTheme => _selectedTheme;
 
-    return _isDarkModeOn;
-  }
+  Future<void> changeTheme() async {
+    prefs = await SharedPreferences.getInstance();
 
-  void updateTheme(bool isDarkModeOn) {
-    _sharedPrefsHelper.changeTheme(isDarkModeOn);
-    _sharedPrefsHelper.isDarkMode.then((darkModeStatus) {
-      _isDarkModeOn = darkModeStatus;
-    });
-
+    if (_selectedTheme == darkTheme) {
+      _selectedTheme = lightTheme;
+      await prefs.setBool("isDark", false);
+    } else {
+      _selectedTheme = darkTheme;
+      await prefs.setBool("isDark", true);
+    }
+//notifying all the listeners(consumers) about the change.
     notifyListeners();
   }
 }

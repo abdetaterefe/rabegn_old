@@ -2,20 +2,22 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rabegn/provider/recipe_provider.dart';
-import 'package:rabegn/screens/admin_profile.dart';
+import 'package:rabegn/screens/admin_route.dart';
 import 'package:rabegn/screens/forgot_screen.dart';
 import 'package:rabegn/screens/login_screen.dart';
 import 'package:rabegn/screens/main_screen.dart';
 import 'package:rabegn/screens/signup_screen.dart';
 import 'package:rabegn/services/auth_services.dart';
 import 'package:rabegn/wrapper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'contants/app_themes.dart';
 import 'provider/theme_provider.dart';
 import 'screens/recipe_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool themeBool = prefs.getBool("isDark") ?? false; //null check
   await Firebase.initializeApp();
   runApp(
     MultiProvider(
@@ -26,8 +28,8 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => RecipeProvider(),
         ),
-        ChangeNotifierProvider<ThemeProvider>(
-          create: (context) => ThemeProvider(),
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider(isDark: themeBool),
         ),
       ],
       child: const MyApp(),
@@ -41,13 +43,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(
-      builder: (_, themeProvider, __) {
+      builder: (context, themeProvider, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: AppThemes.lightTheme,
-          darkTheme: AppThemes.darkTheme,
-          themeMode:
-              themeProvider.isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
+          theme: themeProvider.getTheme,
           initialRoute: '/',
           routes: {
             '/': (context) => const Wrapper(),
@@ -56,7 +55,7 @@ class MyApp extends StatelessWidget {
             '/forgotscreen': (context) => const ForgotScreen(),
             '/mainscreen': (context) => const MainScreen(),
             '/recipescreen': (context) => const RecipeScreen(),
-            '/adminprofilescreen': (context) => const AdminProfileScreen(),
+            '/adminprofilescreen': (context) => AdminRoute(),
           },
         );
       },

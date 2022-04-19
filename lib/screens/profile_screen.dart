@@ -4,12 +4,13 @@ import 'package:rabegn/widgets/custombutton.dart';
 
 import '../provider/theme_provider.dart';
 import '../services/auth_services.dart';
+import '../themes/themes.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authSercice = Provider.of<AuthService>(context);
-
+    var themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -84,18 +85,14 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       SingleSettingItem(
                         'Dark Theme',
-                        Switch.adaptive(
-                          activeColor:
-                              Theme.of(context).appBarTheme.backgroundColor,
-                          activeTrackColor:
-                              Theme.of(context).textTheme.headline6!.color,
-                          value:
-                              Provider.of<ThemeProvider>(context).isDarkModeOn,
-                          onChanged: (booleanValue) {
-                            Provider.of<ThemeProvider>(context, listen: false)
-                                .updateTheme(booleanValue);
-                          },
-                        ),
+                        Switch(
+                            value: themeProvider.getTheme == darkTheme,
+                            activeColor: themeProvider.getTheme == darkTheme
+                                ? Colors.white
+                                : Colors.black,
+                            onChanged: (d) {
+                              themeProvider.changeTheme();
+                            }),
                       ),
                       SingleSettingItem(
                         'Language',
@@ -145,6 +142,7 @@ class ProfileScreen extends StatelessWidget {
                 CustomButton(
                     onTap: () async {
                       await authSercice.signOut();
+                      Navigator.pushReplacementNamed(context, '/loginscreen');
                     },
                     buttonText: 'Log out'),
                 const SizedBox(
